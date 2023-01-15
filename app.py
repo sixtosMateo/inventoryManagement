@@ -1,5 +1,6 @@
 from flask import Flask
 from markupsafe import escape
+from flask import url_for
 
 app = Flask(__name__)
 
@@ -7,11 +8,17 @@ app = Flask(__name__)
 def index():
     return 'Index Page'
 
+@app.route('/login')
+def login():
+    return 'login'
+
+"html escaping prevents injection attacks"
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
     return f'User {escape(username)}'
 
+"variable section"
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
     # show the post with the given id, the id is an integer
@@ -22,6 +29,7 @@ def show_subpath(subpath):
     # show the subpath after /path/
     return f'Subpath {escape(subpath)}'
 
+"trailing slashes"
 @app.route('/projects/')
 def projects():
     return 'The project page'
@@ -29,3 +37,10 @@ def projects():
 @app.route('/about')
 def about():
     return 'The about page'
+
+"url building"
+with app.test_request_context():
+    print(url_for('index'))
+    print(url_for('login'))
+    print(url_for('login', next='/'))
+    print(url_for('show_user_profile', username='John Doe'))
