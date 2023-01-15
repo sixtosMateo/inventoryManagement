@@ -2,7 +2,7 @@ from flask import Flask
 from markupsafe import escape
 from flask import url_for
 from flask import request
-
+from flask import render_template
 app = Flask(__name__)
 
 @app.route('/')
@@ -52,3 +52,22 @@ with app.test_request_context():
     print(url_for('login'))
     print(url_for('login', next='/'))
     print(url_for('show_user_profile', username='John Doe'))
+
+"html rendering"
+
+'''
+Case 1: a module:
+    /application.py
+    /templates
+        /hello.html
+
+Case 2: a package:
+    /application
+        /__init__.py
+        /templates
+            /hello.html
+'''
+@app.route('/hello/')
+@app.route('/hello/<name>/')
+def hello(name=None):
+    return render_template('hello.html', name=name)
