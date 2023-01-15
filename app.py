@@ -1,6 +1,7 @@
 from flask import Flask
 from markupsafe import escape
 from flask import url_for
+from flask import request
 
 app = Flask(__name__)
 
@@ -8,9 +9,16 @@ app = Flask(__name__)
 def index():
     return 'Index Page'
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return 'login'
+    if request.method == 'POST':
+        print("do_the_login")
+        return None
+        # return do_the_login()
+    else:
+        print("show_the_login_form")
+        return None
+        # return show_the_login_form()
 
 "html escaping prevents injection attacks"
 @app.route('/user/<username>')
