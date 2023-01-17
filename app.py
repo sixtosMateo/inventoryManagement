@@ -3,6 +3,8 @@ from markupsafe import escape
 from flask import url_for
 from flask import request
 from flask import render_template
+from werkzeug.utils import secure_filename
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -101,3 +103,22 @@ def login():
 
 '''Accessing url parameters not user friendly'''
 searchword = request.args.get('key', '')
+
+
+'''Uploading files'''
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        f = request.files['the_file']
+        f.save('/var/www/uploads/uploaded_file.txt')
+    ...
+
+'''secure_filename function save filename provided by client securely '''
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        file = request.files['the_file']
+        file.save(f"/var/www/uploads/{secure_filename(file.filename)}")
+    ...
