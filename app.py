@@ -71,3 +71,15 @@ Case 2: a package:
 @app.route('/hello/<name>/')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+'''Context Locals and unit testing it'''
+with app.test_request_context('/hello', method='POST'):
+    # now you can do something with the request until the
+    # end of the with block, such as basic assertions:
+    print('Stating unit testing for request context')
+    assert request.path == '/hello'
+    assert request.method == 'POST'
+
+'''Passing a whole environment'''
+with app.request_context(environ):
+    assert request.method == 'POST'
