@@ -142,3 +142,23 @@ def index():
 
 '''Setting cookie without response obj doesnt exist yet'''
 '''utilize the deffered request callbacks pattern'''
+
+'''Deffered Request Callbacks Pattern:
+    One of the design principles of Flask is that response objects are created
+    and passed down a chain of potential callbacks that can modify them or
+    replace them.'''
+
+'''Need to see about Response in Flask Documentation'''
+
+'''Redirect and Errors'''
+
+'''Redirect to another end point'''
+@app.route('/')
+def index():
+    return redirect(url_for('login'))
+
+'''to abort a request early with error code'''
+@app.route('/login')
+def login():
+    abort(401)
+    this_is_never_executed()
