@@ -122,3 +122,23 @@ def upload_file():
         file = request.files['the_file']
         file.save(f"/var/www/uploads/{secure_filename(file.filename)}")
     ...
+
+
+'''Reading cookies.
+    If wanting to use the session of cookie use the Sessions from Flask.
+    Sessions adds security to towards client's cookie'''
+@app.route('/')
+def index():
+    username = request.cookies.get('username')
+    # use cookies.get(key) instead of cookies[key] to not get a
+    # KeyError if the cookie is missing.
+
+'''Storing Cookies'''
+@app.route('/')
+def index():
+    resp = make_response(render_template(...))
+    resp.set_cookie('username', 'the username')
+    return resp
+
+'''Setting cookie without response obj doesnt exist yet'''
+'''utilize the deffered request callbacks pattern'''
