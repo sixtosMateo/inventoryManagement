@@ -174,3 +174,15 @@ def not_found(error):
     resp = make_response(render_template('error.html'), 404)
     resp.headers['X-Something'] = 'A value'
     return resp
+
+'''API JSON'''
+
+'''coverting a dict or list return value from view into json response'''
+@app.route("/me")
+def me_api():
+    user = get_current_user()
+    return {
+        "username": user.username,
+        "theme": user.theme,
+        "image": url_for("user_image", filename=user.image),
+    }
