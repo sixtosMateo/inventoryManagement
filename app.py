@@ -1,3 +1,4 @@
+from flask import make_response
 from flask import Flask
 from markupsafe import escape
 from flask import url_for
@@ -162,3 +163,14 @@ def index():
 def login():
     abort(401)
     this_is_never_executed()
+
+
+'''Response Objects: converting return values from view function into
+                     response objects'''
+
+'''wrapping response object from view int make response function'''
+@app.errorhandler(404)
+def not_found(error):
+    resp = make_response(render_template('error.html'), 404)
+    resp.headers['X-Something'] = 'A value'
+    return resp
