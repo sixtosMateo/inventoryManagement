@@ -186,3 +186,15 @@ def me_api():
         "theme": user.theme,
         "image": url_for("user_image", filename=user.image),
     }
+
+
+'''passing data to jsonify function. Function will serialize data if it is the
+correct JSON data type: list and dictionary'''
+app.route("/users")
+def users_api():
+    users = get_all_users()
+    return [user.to_json() for user in users]
+
+'''Complex types such as Database models there are serializable libraries and
+API Extension that flask community maintaned that convert data to JSON valid
+types '''
