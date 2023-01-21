@@ -238,3 +238,27 @@ def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
     return redirect(url_for('index'))
+
+
+
+''' How to generate Secret Key
+    Operating system has ways to generate random data based on cryptographic
+    random generator
+
+    Syntax
+        python3 -c 'import secrets; print(secrets.token_hex())'''
+
+
+'''Cookie based sessions:
+    Flask take values you put into your session object and serialize them into
+    a cookie.
+    error use case:
+        If some values dont persist across requests, cookies are indeed enable, 
+        and you are not getting a clear error message
+            -> check the size of your cookie in your page responses compared to
+            the sized of the size supported by the web browser
+
+    Besides the default client-side based sessions,
+        if you want to handle sessions on the server side instead there are
+        several flask extensions that support this
+    '''
