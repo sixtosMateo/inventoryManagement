@@ -5,6 +5,7 @@ from flask import url_for
 from flask import request
 from flask import render_template
 from werkzeug.utils import secure_filename
+from flask import session
 
 app = Flask(__name__)
 
@@ -198,3 +199,42 @@ def users_api():
 '''Complex types such as Database models there are serializable libraries and
 API Extension that flask community maintaned that convert data to JSON valid
 types '''
+
+
+
+'''Sessions:
+    Sessions objects allows you to store information specific to a user from one
+    request to the next.
+        - This is implemented on top of cookies with a cryptographic signature.
+        - Users can look at the contents of the cookie but cannot modify it
+        without the secret key used for signing
+'''
+
+# set secret key to some random bytes
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+
+@app.route('/')
+def index():
+    if 'username' in session:
+        return f'Logged in as {session["username"]}'
+    return 'You are not logged in'
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+    return '''
+        <form method="post">
+            <p><input type=text name=username>
+            <p><input type=submit value=Login>
+        </form>
+    '''
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
