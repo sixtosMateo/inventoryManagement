@@ -1,9 +1,6 @@
-from flask import make_response
-from flask import Flask
+from flask import Flask, make_response
 from markupsafe import escape
-from flask import url_for
-from flask import request
-from flask import render_template
+from flask import url_for, request, render_template, redirect, flash
 from werkzeug.utils import secure_filename
 from flask import session
 
@@ -253,7 +250,7 @@ def logout():
     Flask take values you put into your session object and serialize them into
     a cookie.
     error use case:
-        If some values dont persist across requests, cookies are indeed enable, 
+        If some values dont persist across requests, cookies are indeed enable,
         and you are not getting a clear error message
             -> check the size of your cookie in your page responses compared to
             the sized of the size supported by the web browser
@@ -262,3 +259,33 @@ def logout():
         if you want to handle sessions on the server side instead there are
         several flask extensions that support this
     '''
+
+
+'''Message Flashing:
+    The flashing system records a message at the end of a request and access it
+    on the next (and only next) request. It is combine with a layout template to
+    expose the message
+        - To flash a message use the flash() method
+        - To get hold of all the messages use get_flashed_messages()
+        - Browsers & sometimes web servers enforce a limit on cookies sizes
+        - Flash messages that are too large for session cookies cause the
+        flashing to fail silently
+'''
+app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or \
+                request.form['password'] != 'secret':
+            error = 'Invalid credentials'
+        else:
+            flash('You were successfully logged in')
+            return redirect(url_for('index'))
+    return render_template('login.html', error=error)
