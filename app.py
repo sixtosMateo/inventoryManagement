@@ -289,3 +289,27 @@ def login():
             flash('You were successfully logged in')
             return redirect(url_for('index'))
     return render_template('login.html', error=error)
+
+
+'''Logging
+Handling Application Errors to be continue
+'''
+app.logger.debug('A value for debugging')
+app.logger.warning('A warning occurred (%d apples)', 42)
+app.logger.error('An error occurred')
+
+
+''' Hooking in WSGI middleware
+    To add WSGI middleware to a flask application, wrap the application's wsgi_app
+attribute
+        - Example: to apply werkzeug's proxyfix middleware for running behind
+        NGINX
+'''
+from werkzeug.middleware.proxy_fix import ProxyFix
+app.wsgi_app = ProxyFix(app.wsgi_app)
+
+'''
+        - Wrapping app.wsgi_app instead of app means that app still points to
+        your flask application NOT at the middleware
+        - thus continuing to use and configure app directly 
+'''
