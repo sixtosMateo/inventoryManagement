@@ -311,5 +311,5 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 '''
         - Wrapping app.wsgi_app instead of app means that app still points to
         your flask application NOT at the middleware
-        - thus continuing to use and configure app directly 
+        - thus continuing to use and configure app directly
 '''
