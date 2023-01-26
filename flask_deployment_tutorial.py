@@ -49,3 +49,30 @@ Common Platforms which have instructions for Flask, WSGI or Python
     - AWS Elastic Beanstalk
     - Microsoft Azure
 '''
+
+'''
+ASYNC with gevent or eventlet
+The default async worker is appropiate for many use cases
+- if asynchronous support needed Gunicorn provides workers using gevent or eventlet
+- This is not the same as python's async/await or ASGI server spec
+
+ASGI - Asynchronous Server Gateway Interface
+
+The ASGI is a calling convention for web servers to forward requests to asynchronous
+capable Python Programming language framweworks and applications
+
+It is built as an successor to the WSGI
+
+    SIDE NOTE: successor = inheritor (a person or a thing that succeeds another)
+
+You must actually use gevent or eventlet in your own code to see any benefit to
+using the workers
+
+
+To use gevent :
+    $ gunicorn -k gevent 'hello:create_app()'
+
+To use eventlet:
+    $ gunicorn -k eventlet 'hello:create_app()'
+
+'''
