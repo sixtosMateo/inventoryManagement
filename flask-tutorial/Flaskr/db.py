@@ -26,6 +26,30 @@ close_db checks if a connection was created by checking if g.db was set.
     - Further down you will tell your application about the close_db function in
      the application factory so that it is called after each request.
 '''
+
+
+'''
+Register with the application
+close_db() and click.command() functions need to be registered with the application
+instance
+    - otherwise they wont be used by the application
+    - since a factory function is being used to initialize an Flask instance
+    that instance isnt available when writing the functions
+    - Instead write a function that takes an application and does the registration
+
+Import and call this init_app function from the factory function. This function
+is located at init module 
+'''
+
+def init_app(app):
+    '''app.teardown_appcontext() tells Flask to call that function when cleaning
+    up after returning the response.'''
+    app.teardown_appcontext(close_db)
+
+    '''adds a new command that can be called with the flask command.'''
+    app.cli.add_command(init_db_command)
+
+
 def init_db():
     db = get_db()
 
