@@ -17,5 +17,13 @@ database libraries) is to create a connection to it
 
 In web applications this connection is typically tied to the request.
     - It is created at some point when handling a request and closed before the
-    response is sent 
+    response is sent
+
+
+Initialize the DB File
+Now that init-db has been registered with the app, it can be called using the
+flask command, similar to the run command
+    - Run the init-db command:
+        $ flask --app flaskr init-db
+        Initialized the database.
 '''
