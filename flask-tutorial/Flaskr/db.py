@@ -38,7 +38,7 @@ instance
     - Instead write a function that takes an application and does the registration
 
 Import and call this init_app function from the factory function. This function
-is located at init module 
+is located at init module
 '''
 
 def init_app(app):
