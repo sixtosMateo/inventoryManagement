@@ -53,7 +53,20 @@ def register():
 
     return render_template('auth/register.html')
 
+'''
+check_password_hash: hashes the submitted password and securely compares them
 
+session is a dict that stores data across requests
+    - when the validation succeeds the user's id is stored in a new session
+    - The data is stored in a cookie that is sent to the browser and the browser
+    then sends it back with subsequent requests
+    - Flask securely signs the data so that it cant be tampered with
+
+Now that the user's id is stored in the session, it will be available on subsequent
+requests
+    - At the beginning of each request, if a user is logged in their information
+    should be loaded and made available to other views
+'''
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
