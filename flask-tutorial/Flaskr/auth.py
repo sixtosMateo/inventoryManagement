@@ -10,7 +10,19 @@ from flaskr.db import get_db
     - Like the application object, the blueprint needs to know where it is
     defined so __name__ is passed as the second argument
 '''
+'''bp is the blueprint for authentication view logic'''
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+'''
+bp.route associates the URL /register with the register view function
+
+After storing the user, they are redirected to the login page
+
+url_for() generates the URL for the login view based on its name
+    - This is preferable to writing the url directly as it allows you to change
+    the URL later without changing all code that links to it
+    - redirect() generates a redirect respinse to the generated URL
+'''
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
