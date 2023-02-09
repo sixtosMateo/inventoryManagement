@@ -99,7 +99,7 @@ matter what URL is requested
 load_logged_in_user() checks if a user id is stored in the session and gets the
 users data from the database
     - storing it on g.user which lasts for the length of the request, if there
-    is no user id or if the id doesnt exist g.user will be none 
+    is no user id or if the id doesnt exist g.user will be none
 '''
 @bp.before_app_request
 def load_logged_in_user():
@@ -111,3 +111,12 @@ def load_logged_in_user():
         g.user = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
+
+'''
+To log out you need to remove user_id from the session. This prevents
+load_logged_in_user function to load a user info on subsequent requests
+'''
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
