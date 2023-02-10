@@ -135,3 +135,20 @@ def login_required(view):
             return redirect(url_for('auth.login'))
         return view(**kwargs)
     return wrapped_view
+
+''' Endpoint and urls:
+The url_for function generates the url to a view based on a name and arguments
+    - The name associated with a view is also called the endpoint and by default
+    it's the same as the name of the view function
+
+EX:
+    The hello() view that was added to the app factory has the name of 'hello'
+    and can be linked to with url_for('hello')
+        - if it took an argument which you will see later it would be linked to
+        using url_for('hello', who='world')
+
+When using a blueprint, the name of the blueprint is prepended to the name of
+the function
+    - so the endpoint for the login function you wrote above is 'auth.login'
+    because you added it to the 'auth' blueprint
+'''
