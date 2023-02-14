@@ -35,8 +35,16 @@ def create_app(test_config=None):
 
     from . import blog
     app.register_blueprint(blog.bp)
-    app.add_url_rule('/', endpoint='index')
+'''
+    since blog bp does not have an url prefix:
+        - index view will be at / since blog is the main feature of Flaskr
 
-    return app
+    The endpoint for the index view defined in blog.py will be blog.index
+        - some of auth.py views referred to a plain index endpoint
+        -  app.add_url_rule() associates the endpoint name 'index' with the '/'
+        that url_for('index') or url_for('blog.index') will both work generating
+        the same url either way 
+'''
+    app.add_url_rule('/', endpoint='index')
 
     return app
