@@ -18,3 +18,11 @@
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
 {% endblock %}
+<!--
+The pattern {{request.form['title'] or post['title']}} is used to choose what
+data appears in the form
+  * when the form hasnt been submitted, the original post data appears
+  * if invalid form data was posted you want to display that so the user
+  can fix the error so -> request form is used instead
+      <request is another variable thats automatically avialable in templates>
+-->

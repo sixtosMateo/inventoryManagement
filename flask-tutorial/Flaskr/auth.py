@@ -21,7 +21,7 @@ After storing the user, they are redirected to the login page
 url_for() generates the URL for the login view based on its name
     - This is preferable to writing the url directly as it allows you to change
     the URL later without changing all code that links to it
-    - redirect() generates a redirect respinse to the generated URL
+    - redirect() generates a redirect response to the generated URL
 '''
 
 @bp.route('/register', methods=('GET', 'POST'))
