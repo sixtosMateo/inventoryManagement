@@ -53,3 +53,20 @@ application and database for testing instead of using your local development
 configuration
 
 '''
+
+'''
+conftest.py
+
+tempfile.mkstemp():
+    - creates and opens a temporary file returning the file descriptor and the
+    path to it
+    - The DATABSE path is overridden so it points to this temporary path instead
+    of the instance folder
+        * after setting the path, the database tables are created and the test
+        data is inserted
+    - After the test is over, the temporary file is closed and removed
+
+TESTING tells Flask that the app is in test mode.
+    - Flask changes some internal behavior so it is easy to test and other
+    extensions can also use the flag to make testing easier
+'''
