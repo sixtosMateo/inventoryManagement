@@ -69,4 +69,30 @@ tempfile.mkstemp():
 TESTING tells Flask that the app is in test mode.
     - Flask changes some internal behavior so it is easy to test and other
     extensions can also use the flag to make testing easier
+
+Client Fixture
+The client fixture calls app.test_client() with the application object created
+by the app fixture.
+    - Test will use the client to make requests to the application without running
+    the server
+    -
+
+Runner Fixture
+The runner fixture is similar to client.
+    - app.test_cli_runner() creates a runner that can call the Click commands
+    registered with the application
+
+Pytest uses fixtures by matching their function names with the names of the
+arguments in the test function
+    - For example: the test_hello function (written next tutorial) takes a client
+    argument
+    - Pytest matches that with the client fixture function, calls it and passes
+    the return value to the test function
+
+
+
+
+
+
+
 '''
