@@ -73,7 +73,7 @@ TESTING tells Flask that the app is in test mode.
 Client Fixture
 The client fixture calls app.test_client() with the application object created
 by the app fixture.
-    - Test will use the client to make requests to the application without running
+    - Tests will use the client to make requests to the application without running
     the server
     -
 
