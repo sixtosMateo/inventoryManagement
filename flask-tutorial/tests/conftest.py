@@ -34,4 +34,12 @@ def client(app):
 
 @pytest.fixture
 def runner(app):
+    '''
+    Flask provides test_cli_runner() to create a FlaskCliRunner
+        - which runs CLI commands in isolation and captures the output in a
+        return object
+
+    Use the runner's invoke() method to call commands in the same way they would
+    be called with the flask command from the command line 
+    '''
     return app.test_cli_runner()
