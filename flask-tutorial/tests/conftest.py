@@ -44,7 +44,13 @@ def runner(app):
     '''
     return app.test_cli_runner()
 
-
+'''
+For most of the views a user needs to be logged in:
+    - the easiest way to do this in tests is to make a POST request to the
+    login view with the client
+    - Rather than writing that out every time, you can write a class with
+    methods to do that and use a fixture to pass it the client for each test
+'''
 class AuthActions(object):
     def __init__(self, client):
         self._client = client
