@@ -49,7 +49,7 @@ For most of the views a user needs to be logged in:
     - the easiest way to do this in tests is to make a POST request to the
     login view with the client
     - Rather than writing that out every time, you can write a class with
-    methods to do that and use a fixture to pass it the client for each test
+    methods to do that and use a fixture to pass it with the client for each test
 '''
 class AuthActions(object):
     def __init__(self, client):
@@ -64,6 +64,11 @@ class AuthActions(object):
     def logout(self):
         return self._client.get('/auth/logout')
 
+'''
+With the auth fixture:
+    - you can call auth.login() in a test to login in as the test user,
+    (which was inserted as part of the test data in the app fixture)
+'''
 
 @pytest.fixture
 def auth(client):
